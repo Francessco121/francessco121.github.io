@@ -1,11 +1,3 @@
-# Build output
-build/
-
-# Dart build cache
-.dart_tool/
-
-# Pub cache
-.packages
-
-# Visal Studio Code workspace files
 .vscode/
+node_modules/
+_site/

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <meta name="author" content="Shinx121"/>
+  <meta name="description" content=""/>
+
+  <meta property="og:title" content="shinx.dev" />
+  <meta property="og:image" content="/images/icon.png" />
+  <meta property="og:description" content="" />
+  <meta property="og:site_name" content="shinx.dev" />
+
+  <title>shinx.dev</title>
+
+  <base href="/" />
+
+  <link href="/css/base.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <div class="header-container">
+    <header>
+      <div id="shinx" class="shinx" style="width: 80px; height: 80px">
+        <image id="shinx-gif" src="images/shinx.png" />
+        <video id="shinx-video" width="80" height="80" style="display: none" preload muted>
+          <source src="/images/shinx_roar.webm" type="video/webm" />
+        </video>
+      </div>
+      <h1>
+        shinx.dev
+      </h1>
+    </header>
+  </div>
+
+  <div class="container">
+    <main>
+      <p style="margin-top: 0">
+        hello!
+        <br/>
+        i am a <span title="not a web designer, as you can probably tell...">software engineer</span> who is currently obsessed with reverse engineering <img src="/images/cr.png" class="cloudrunner"/> <a href="https://www.rarewiki.com/wiki/Dinosaur_Planet">an obscure unreleased Nintendo 64 game</a>.
+      </p>
+
+      <a class="gh-button" href="https://github.com/Francessco121" style="float: right; margin-top: 16px">
+        <img src="/images/GitHub-Mark-Light-32px.png" style="height: 24px"/>
+        <span>my github</span>
+      </a>
+
+      <h4>some stuff i made:</h4>
+      <ul>
+        <li><a href="https://github.com/DinosaurPlanetRecomp/dino-recomp">Dinosaur Planet: Recompiled</a> <small>(we on PC baby!)</small></li>
+        <li><a href="https://shinx.dev/dino-status/">Dinosaur Planet Decompilation Status Page</a></li>
+        <li><a href="https://github.com/Francessco121/real-war-decomp">Real War (2001) Decompilation</a> <small>(very incomplete)</small></li>
+      </ul>
+
+      <h4>some stuff i contribute to:</h4>
+      <ul>
+        <li><a href="https://github.com/zestydevy/dinosaur-planet">Dinosaur Planet Decompilation</a> <small>(severe addiction)</small></li>
+      </ul>
+
+      <h4>cool links:</h4>
+      <ul>
+        <li><a href="https://dinosaurpla.net/">DinosaurPla.net</a></li>
+      </ul>
+
+      <img src="/images/shinx_shiny.png" title="idk what to put here, have a shiny. this one doesn't move, sorry" style="float: right; margin-top: -33px;" />
+
+      <p style="margin-top: 24px; margin-bottom: 0">
+        <small>something interesting will be here eventually... probably...</small>
+      </p>
+    </main>
+  </div>
+
+  <script>
+    // shinx scree
+    const shinx = document.getElementById("shinx");
+    const shinxGif = document.getElementById("shinx-gif");
+    const shinxVideo = document.getElementById("shinx-video");
+    shinx.addEventListener('pointerenter', () => {
+      if (!shinxVideo.ended && shinxVideo.currentTime != 0) {
+        return;
+      }
+      shinxGif.style.display = 'none';
+      shinxVideo.style.display = 'initial';
+      shinxVideo.currentTime = 0;
+      shinxVideo.removeAttribute('loop');
+      shinxVideo.removeAttribute('controls'); // no u
+      shinxVideo.play();
+      // webm is too long and i can't trim it correctly to save my life
+      setTimeout(() => {
+        shinxVideo.removeAttribute('loop');
+        shinxVideo.currentTime = shinxVideo.duration;
+      }, 800);
+    });
+    shinxVideo.addEventListener('ended', () => {
+      shinxGif.style.display = 'initial';
+      shinxVideo.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
