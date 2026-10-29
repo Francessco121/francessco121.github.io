@@ -21,8 +21,8 @@
   <div class="header-container">
     <header>
       <div id="shinx" class="shinx" style="width: 80px; height: 80px">
-        <image id="shinx-gif" src="images/shinx.png" />
-        <video id="shinx-video" width="80" height="80" style="display: none" preload muted>
+        <image id="shinx-gif" src="/images/shinx.png" />
+        <video id="shinx-video" width="80" height="80" style="display: none" preload muted playsinline disablepictureinpicture disableremoteplayback>
           <source src="/images/shinx_roar.webm" type="video/webm" />
         </video>
       </div>
@@ -75,26 +75,39 @@
     const shinx = document.getElementById("shinx");
     const shinxGif = document.getElementById("shinx-gif");
     const shinxVideo = document.getElementById("shinx-video");
-    shinx.addEventListener('pointerenter', () => {
-      if (!shinxVideo.ended && shinxVideo.currentTime != 0) {
-        return;
-      }
-      shinxGif.style.display = 'none';
-      shinxVideo.style.display = 'initial';
-      shinxVideo.currentTime = 0;
-      shinxVideo.removeAttribute('loop');
-      shinxVideo.removeAttribute('controls'); // no u
-      shinxVideo.play();
-      // webm is too long and i can't trim it correctly to save my life
-      setTimeout(() => {
+    shinxVideo.addEventListener('loadeddata', () => {
+      let scree = false;
+
+      function shinxScree() {
+        if (shinxVideo.error || scree) {
+          return;
+        }
+        scree = true;
+        shinxGif.style.display = 'none';
+        shinxVideo.style.display = 'initial';
+        shinxVideo.currentTime = 0;
         shinxVideo.removeAttribute('loop');
-        shinxVideo.currentTime = shinxVideo.duration;
-      }, 800);
+        shinxVideo.removeAttribute('controls'); // no u
+        shinxVideo.play();
+        // webm is too long and i can't trim it correctly to save my life
+        setTimeout(() => {
+          shinxVideo.removeAttribute('loop');
+          shinxVideo.currentTime = shinxVideo.duration;
+        }, 800);
+      }
+      shinx.addEventListener('click', () => {
+        shinxScree();
+      });
+      shinx.addEventListener('pointerenter', () => {
+        shinxScree();
+      });
+      shinxVideo.addEventListener('ended', () => {
+        shinxGif.style.display = 'initial';
+        shinxVideo.style.display = 'none';
+        scree = false;
+      });
     });
-    shinxVideo.addEventListener('ended', () => {
-      shinxGif.style.display = 'initial';
-      shinxVideo.style.display = 'none';
-    });
+    shinxVideo.load();
   </script>
 </body>
 </html>
